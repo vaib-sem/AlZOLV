@@ -49,7 +49,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
         const faceDescriptorArray = Array.from(faceDescriptor);
 
         faceDescriptors.push({ name: req.body.name, descriptor: faceDescriptorArray });
-        fs.writeFileSync('data/face_descriptors.json', JSON.stringify(faceDescriptors));
+        fs.writeFileSync('./data/face_descriptors.json', JSON.stringify(faceDescriptors));
 
         res.json({ status: 'success' });
     } else {
@@ -58,5 +58,24 @@ router.post('/upload', upload.single('image'), (req, res) => {
 
     fs.unlinkSync(imgPath);
 });
+
+
+
+app.post('/process_frame', async (req, res) => {
+    const { frame } = req.body;
+  
+    try {
+      const response = await axios.post('http://localhost:5001/process_frame', { frame });
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: 'Error processing frame in Flask backend' });
+    }
+  });
+  
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+
+  
 
 module.exports = router;

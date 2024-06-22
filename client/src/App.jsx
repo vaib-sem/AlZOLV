@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { FaceRecognition, Home, LiveLocationTracker, Navbar, ShareLocation } from './components';
+import { FaceRecognition, Home, LiveLocationTracker, Login, Navbar, ShareLocation, Signup } from './components';
+
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Home/>} />
           <Route path="/home"  element={<Home/>} />
+          <Route path="/signup" exact element={<Signup/>} />
+          <Route path="/signin" exact element={<Login/>} />
           <Route path="/faceRec"  element={<FaceRecognition/>} />
           <Route path="/location"  element={<LiveLocationTracker/>} />
           <Route path="/share-location"  element={<ShareLocation/>} />
